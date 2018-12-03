@@ -15,4 +15,18 @@ Route::get('/', 'TestController@welcome');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+  Route::get('/home', 'HomeController@index')->name('home');
+
+
+
+Route::middleware(['auth','admin'])->prefix('admin')->namespace('Admin')->group(function () {
+
+
+  });
+
+
+
+Route::get("logout", function(){
+    Auth::logout();
+    return Redirect::to('login')->with(array('logout' => 'Has cerrado sesión correctamente.'));
+});
