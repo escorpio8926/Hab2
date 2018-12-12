@@ -45,7 +45,7 @@
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
                     <h2 class="title">¿Por que Coscopia?</h2>
-                    <h5 class="description">Crea y Personaliza tu Tu diagrama</h5>
+                    <h5 class="description">Crea y Personaliza Tus propios diagramas</h5>
                 </div>
             </div>
 

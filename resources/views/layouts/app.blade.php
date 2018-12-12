@@ -50,7 +50,7 @@
 
 																							<ul class="dropdown-menu" role="menu">
 																								<li class"active">
-																										<a href="{{url('/home')}}">Dashboard</a>
+																										<a href="{{url('/home')}}">Gestion de proyectos</a>
 																								</li>
 																								@if(auth()->user()->admin)
 																								<li>
