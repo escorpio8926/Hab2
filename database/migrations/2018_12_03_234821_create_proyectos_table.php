@@ -18,6 +18,7 @@ class CreateProyectosTable extends Migration
             $table->text('descripcion');
             $table->increments('id');
             $table->timestamps();
+
         });
     }
 

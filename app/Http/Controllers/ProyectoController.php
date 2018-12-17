@@ -1,13 +1,14 @@
 <?php
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Proyecto;
 use Auth;
 use App\Actividade;
-
+use App\User;
 class ProyectoController extends Controller
 {
   /**
@@ -17,14 +18,24 @@ class ProyectoController extends Controller
   */
   public function index(Request $request)
   {
-    /*
+
     $q=$request->has('buscar')?'%'.$request->buscar.'%':'%';
-    /*
+
     //primera versión sin incluir los datos de las tareas asociadas
-    $proyectos = Proyecto::where('user_id',Auth::user()->id)
+
+
+   $pro= DB::table('proyecto_user')
+                        ->where('user_id',Auth::user()->id)
                         ->orderBy('id', 'desc')
-                        ->paginate(10);
-    */
+                        ->paginate(100);
+
+   $pra=Proyecto::with('actividades')
+                ->get();
+
+    return view('proyectos.index', compact('pro','pra'));
+
+
+  }
 /*
     //segunda versión asociando las tareas pasa de hacer 13 consultas a solo 4
     $proyectos = Proyecto::with('actividades') //obtener los objetos relacionados
@@ -32,14 +43,14 @@ class ProyectoController extends Controller
                         ->Where('titulo','like',$q) //busca los que contengan en el titulo la palabra buscar
                         ->orderBy('id', 'desc') //en orden descendente por id
                         ->paginate(10); //genere la paginación
-/*
+
     return view('proyectos.index', compact('proyectos'));
-  */
+
 
   return view('proyectos.index');
   }
 
-  /**
+
   * muestra el formulario para crear un Nuevo proyecto
   *
   * @return Response
@@ -62,6 +73,8 @@ class ProyectoController extends Controller
     $proyecto->titulo = $request->input("titulo");
     $proyecto->descripcion = $request->input("descripcion");
     Auth::user()->proyectos()->save($proyecto);
+
+
 
     return redirect()->route('proyectos.index')->with('message', 'Nuevo Proyecto Guardado!!!');
   }

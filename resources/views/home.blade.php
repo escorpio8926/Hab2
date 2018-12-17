@@ -27,12 +27,10 @@
 		<a class="btn btn-success pull-right" href="{{ route('proyectos.create') }}"><i class="fa fa-btn fa-plus"></i>Nuevo</a>
 	</h1>
 </div>
-<div class="row">
-	<div class="col-md-12">
+
 		<div class="search">
 			<form action="/admp/public/proyectos" method="GET" class="form-horizontal">
 				<div class="form-group">
-
 					<div class="input-group col-sm-offset-1 col-sm-10">
 						<input type="text" name="buscar" id="buscar" class="form-control" value="{{ request()->buscar }}" placeholder="buscar Proyecto">
 						<span class="input-group-btn">
@@ -44,21 +42,22 @@
 		</div>
 
 
-
-
-
-
-
-
-
-        </div>
-
-
-
+		@if($pro->count())
+	<div class="list-group">
+			@foreach($pro as $proyecto)
+      @foreach($pra as $prayecto)
+      @if($proyecto->proyecto_id == $prayecto->id)
+			<a href="{{ route('proyectos.show', $proyecto->id) }}" class="list-group-item">
+        <h4 class="list-group-item-heading">{{$prayecto->titulo}} <span class="badge">{{$prayecto->actividades->count()}}</span></h4>
+      <p class="list-group-item-text">{{$prayecto->descripcion}}</p>
+    </a>
+      @endif
+			@endforeach
+      @endforeach
     </div>
-
-</div>
-
+		@else
+		<h3 class="text-center alert alert-info">No Hay Proyectos!</h3>
+		@endif
 
 
 @endsection
