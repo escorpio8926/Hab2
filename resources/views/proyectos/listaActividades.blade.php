@@ -8,13 +8,19 @@
         <form class="nueva form-horizontal" action="{{ route('proyectos.storeActividade',$proyecto->id) }}" method="POST" >
           {{ csrf_field() }}
           <!-- tarea -->
+          @if($errors->has("actividad"))
+          <span class="help-block">{{ $errors->first("actividad") }}</span>
+          @endif
           <div class="form-group">
-            <label for="actividad" class="control-label col-sm-offset-1">Diagrama</label>
+
+
             <div class="input-group col-sm-offset-1 col-sm-10">
               <input type="text" name="actividad" id="actividad" class="form-control" value="{{ old('actividad') }}" placeholder="nuevo diagrama">
+
               <span class="input-group-btn">
                 <button class="btn btn-success" type="submit"><i class="fa fa-btn fa-plus"></i>agregar</button>
               </span>
+
             </div><!-- /input-group -->
           </div> <!-- tarea -->
         </form> <!-- /form.nueva -->

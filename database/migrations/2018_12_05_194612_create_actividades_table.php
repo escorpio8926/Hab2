@@ -16,7 +16,7 @@ class CreateActividadesTable extends Migration
         Schema::create('actividades', function (Blueprint $table) {
           $table->increments('id');
           $table->string('actividad');
-          $table->boolean('completo');
+          $table->boolean('completo')->nullable();
           $table->integer('proyecto_id')->unsigned();
           $table->foreign('proyecto_id')->references('id')->on('proyectos');
           $table->timestamps();

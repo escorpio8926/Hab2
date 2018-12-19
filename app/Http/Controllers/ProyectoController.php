@@ -69,6 +69,19 @@ class ProyectoController extends Controller
   */
   public function store(Request $request)
   {
+    $messages=[
+      'titulo.required'=>'El Campo Titulo No puede ser Nulo',
+      'titulo.required'=>'El Titulo debe Tener mas de 3 Caracteres',
+      'descripcion.required'=>'El Campo Descripcion No puede ser Nulo',
+      'descripcion.max'=>'El Campo Descripcion NO debe superar los 200 Caracteres'
+    ];
+
+    $rules =[
+      'titulo' => 'required|min:3',
+      'descripcion' => 'required|max:200'
+    ];
+    $this->validate($request,$rules,$messages);
+
     $proyecto = new Proyecto();
 
     $proyecto->titulo = $request->input("titulo");
@@ -103,6 +116,7 @@ class ProyectoController extends Controller
   {
     $proyecto = Proyecto::findOrFail($id);
 
+
     return view('proyectos.edit', compact('proyecto'));
   }
 
@@ -115,6 +129,20 @@ class ProyectoController extends Controller
   */
   public function update(Request $request, $id)
   {
+
+    $messages=[
+      'titulo.required'=>'El Campo Titulo No puede ser Nulo',
+      'titulo.required'=>'El Titulo debe Tener mas de 3 Caracteres',
+      'descripcion.required'=>'El Campo Descripcion No puede ser Nulo',
+      'descripcion.max'=>'El Campo Descripcion NO debe superar los 200 Caracteres'
+    ];
+
+    $rules =[
+      'titulo' => 'required|min:3',
+      'descripcion' => 'required|max:200'
+    ];
+    $this->validate($request,$rules,$messages);
+
     $proyecto = Proyecto::findOrFail($id);
 
     $proyecto->titulo = $request->input("titulo");
@@ -146,6 +174,17 @@ class ProyectoController extends Controller
   */
   public function storeActividade(Request $request,$id)
   {
+
+    $messages=[
+      'actividad.required'=>'El Campo Actividad No puede ser Nulo',
+      'actividad.required'=>'El Campo Actividad debe Tener mas de 3 Caracteres',
+    ];
+
+    $rules =[
+      'actividad' => 'required|min:3'
+    ];
+    $this->validate($request,$rules,$messages);
+
     $proyecto = Proyecto::findOrFail($id);
     $actividade = new Actividade();
     $actividade->actividad = $request->input("actividad");
