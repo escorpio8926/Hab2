@@ -29,7 +29,7 @@
 </div>
 
 		<div class="search">
-			<form action="/admp/public/proyectos" method="GET" class="form-horizontal">
+			<form action="/proyectos" method="GET" class="form-horizontal">
 				<div class="form-group">
 					<div class="input-group col-sm-offset-1 col-sm-10">
 						<input type="text" name="buscar" id="buscar" class="form-control" value="{{ request()->buscar }}" placeholder="buscar Proyecto">

@@ -30,6 +30,7 @@ class ProyectoController extends Controller
                         ->paginate(100);
 
    $pra=Proyecto::with('actividades')
+                ->Where('titulo','like',$q)
                 ->get();
 
     return view('proyectos.index', compact('pro','pra'));

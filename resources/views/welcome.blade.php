@@ -65,7 +65,7 @@
             <div class="icon icon-success">
               <i class="material-icons">verified_user</i>
             </div>
-            <h4 class="info-title">Pago Seguro</h4>
+            <h4 class="info-title">DHTMLXGantt</h4>
             <p>Permisos garantizados para tener tus proyectos controlados</p>
           </div>
                   </div>
