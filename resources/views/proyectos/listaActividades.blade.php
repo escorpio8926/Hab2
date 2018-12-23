@@ -37,7 +37,7 @@
                 {{ csrf_field() }}
                 {{ method_field('PUT') }}
 
-                  <button type="submit" class="checkbox">Crear/ver Proyecto</button>
+                  <button type="submit" class="checkbox">Crear/ver Actividad</button>
                   <a class="checkbox-link pull-right" href="{{route('proyectos.updateActividade',[$proyecto->id,$t->id])}}"></a>
                   <label>
                     <input
