@@ -18,6 +18,14 @@
 <body>
 <div id="gantt_here" style='width:100%; height:100%;'></div>
 <script type="text/javascript">
-    gantt.init("gantt_here");
+
+gantt.config.xml_date = "%Y-%m-%d %H:%i:%s";
+gantt.init("gantt_here");                         //Aqui cargamos La API
+gantt.load("/api/data");
+
+var dp = new gantt.dataProcessor("/api");
+dp.init(gantt);
+dp.setTransactionMode("REST");
+
 </script>
 </body>
