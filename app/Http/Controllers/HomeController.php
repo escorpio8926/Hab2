@@ -10,6 +10,7 @@ use App\Proyecto;
 use Auth;
 use App\Actividade;
 use App\User;
+use App\Permiso;
 
 class HomeController extends Controller
 {
@@ -46,7 +47,28 @@ class HomeController extends Controller
       $pra=Proyecto::with('actividades')
                    ->get();
 
-       return view('proyectos.index', compact('pro','pra'));
+  //obtener actividades compartidas conmigo
+  $permisos = Permiso::where('id_usuario','=',Auth::id())->get();
+  $compartidos = [];
+  foreach($permisos as $permiso){
+      if(Actividade::findOrFail($permiso->id_actividad)->usuario_id!=Auth::id()){
+          array_push($compartidos,$permiso);
+      }
+  }
+  $permisos = $compartidos;
+
+
+  
+
+  //fin obtener actividades compartidas
+
+return view('proyectos.index', compact('pro','pra','permisos'));
+  
+
+  //fin obtener actividades compartidas
+
+return view('proyectos.index', compact('pro','pra','permisos'));
+
 
 
      }

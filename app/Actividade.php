@@ -10,4 +10,8 @@ class Actividade extends Model
 {
   return $this->belongsTo(Proyecto::class);
 }
+
+public function permisos(){
+  return $this->hasMany('App\Permiso');
+}
 }

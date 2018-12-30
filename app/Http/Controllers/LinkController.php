@@ -14,6 +14,8 @@ class LinkController extends Controller
       $link->source = $request->source;
       $link->target = $request->target;
 
+      $arrayreferente = explode('/',$request->headers->get("referer"));
+      $link->actividad_id = end($arrayreferente);
       $link->save();
 
       return response()->json([

@@ -9,6 +9,10 @@ use App\Proyecto;
 use Auth;
 use App\Actividade;
 use App\User;
+use App\Permiso;
+use Illuminate\Support\Facades\Input;
+use App\Mail\PermisosModificados;
+
 class ProyectoController extends Controller
 {
   /**
@@ -32,8 +36,22 @@ class ProyectoController extends Controller
    $pra=Proyecto::with('actividades')
                 ->Where('titulo','like',$q)
                 ->get();
+      //obtener actividades compartidas conmigo
+      $permisos = Permiso::where('id_usuario','=',Auth::id())->get();
+      $compartidos = [];
+      foreach($permisos as $permiso){
+          if(Actividade::findOrFail($permiso->id_actividad)->usuario_id!=Auth::id()){
+              array_push($compartidos,$permiso);
+          }
+      }
+      $permisos = $compartidos;
+ 
 
-    return view('proyectos.index', compact('pro','pra'));
+      
+
+      //fin obtener actividades compartidas
+
+    return view('proyectos.index', compact('pro','pra','permisos'));
 
 
   }
@@ -188,8 +206,16 @@ class ProyectoController extends Controller
     $proyecto = Proyecto::findOrFail($id);
     $actividade = new Actividade();
     $actividade->actividad = $request->input("actividad");
-		$actividade->completo = false;
+    $actividade->completo = false;
+    $actividade->usuario_id = Auth::id();
     $proyecto->actividades()->save($actividade);
+    $permiso = new Permiso();
+    $permiso->leer = 1;
+    $permiso->escribir = 1;
+    $permiso->controltotal = 1;
+    $permiso->id_usuario = Auth::id();
+    $permiso->id_actividad = $actividade->id;
+    $permiso->save();
     return redirect()->route('proyectos.show',$id)->with('message', 'Nueva Actividad Guardada!!!');
   }
 
@@ -216,6 +242,72 @@ class ProyectoController extends Controller
     $actividade=Actividade::findOrFail($idActividade);
     $actividade->completo=$request->input('completo');
     $actividade->save();
-    return view('gantt');
+    return view('gantt')->with("idActividade",$idActividade)->with("actividad",$actividade);
   }
+
+  public function verUsuarios(Request $request,$idproyecto, $idActividade){
+    //dada una actividad mostrar los usuarios que tienen permiso sobre el mismo
+  
+    return view('compartir')->with('idActividade',$idActividade);
+  }
+
+  public function cambiarPermiso(Request $request,$idproyecto, $idActividade, $permiso, $idPermiso){
+    $mensaje = "";
+    if($permiso=="agregar"){
+      if((Input::get('usuario')!=0)){
+      $nperm = new Permiso; // nperm = nuevo permiso
+      $nperm->id_usuario = Input::get('usuario');
+      $nperm->id_actividad = $idActividade;
+      $nperm->leer = false;
+      $nperm->escribir = false;
+      $nperm->controltotal = false;
+      $nperm->save();
+      }
+    }else{
+    $pac = Permiso::findOrFail($idPermiso); // pac = permiso a cambiar
+    if ($permiso == 'leer') {
+      $pac->leer = ($pac->leer==1)?0:1;
+      if($pac->leer==0){
+        $pac->escribir =0;
+        $pac->controltotal = 0;
+        $mensaje = "Acceso Denegado.";
+      }else{
+      $mensaje = "Permisos de lectura.";
+      }
+      $pac->save();
+    }
+    if ($permiso == 'escribir') {
+      $pac->escribir = ($pac->escribir==1)?0:1;
+      if ($pac->escribir==1){
+        $pac->leer = 1;
+        $mensaje = "Permisos de lectura y escritura.";
+      }else{
+        $pac->controltotal = 0;
+        $mensaje = "Permisos de escritura denegado.";
+      }
+      $pac->save();
+    }
+    if ($permiso == 'controltotal') {
+
+      $pac->controltotal = ($pac->controltotal==1)?0:1;
+      if($pac->controltotal==1){
+        $pac->leer = 1;
+        $pac->escribir = 1;
+        $mensaje = "Permisos de control total obtenidos.";
+      }else{
+        $mensaje = "Permisos de control total denegados.";
+      }
+      $pac->save();
+    }
+    if ($permiso == 'eliminar') {
+      $pac->delete();
+      $mensaje = "Permisos eliminados.";
+    }
+    $nombreusuario = Auth::user()->name;
+    $nombreactividad = Actividade::find($idActividade)->actividad;
+    \Mail::to(User::find($pac->id_usuario))->send(new PermisosModificados($nombreusuario,$nombreactividad,$mensaje));
+  }
+    return redirect("/proyectos/".$idproyecto."/actividade/".$idActividade."/usuarios"); 
+  }
+
 }

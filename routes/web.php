@@ -25,6 +25,7 @@ Route::middleware(['auth','admin'])->prefix('admin')->namespace('Admin')->group(
 });
 
 
+Route::get('/sendnotifications/{periodo}','SendNotifications@send');
 
 Route::get("logout", function(){
     Auth::logout();
@@ -41,6 +42,8 @@ Route::group(['middleware' => 'auth'], function () {
   Route::delete("proyectos/{proyectos}/actividade/{idActividade}",['as' => 'proyectos.destroyActividade','uses'=>'ProyectoController@destroyActividade']);
   // modifica una tarea el verbo tiene que ser por método put
   Route::put("proyectos/{proyectos}/actividade/{idActividade}",['as' => 'proyectos.updateActividade','uses'=>'ProyectoController@updateActividade']);
+  //ver usuarios con los que se comparte una actividad
+  Route::get("proyectos/{proyectos}/actividade/{idActividade}/usuarios", ['as' => 'proyectos.verUsuarios', 'uses'=>'ProyectoController@verUsuarios']);
 
-
+  Route::get("proyectos/{proyectos}/actividade/{idActividade}/usuarios/{permiso}/{idPermiso}", ['as' => 'proyectos.cambiarPermiso', 'uses'=>'ProyectoController@cambiarPermiso']);
 }); //Route::group(['middleware' => 'auth'], function ()
