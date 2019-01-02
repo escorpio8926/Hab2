@@ -31,7 +31,7 @@
       <h1 class="title">COSCOPIA</h1>
                 <h4>Administra tus Proyectos de la manera mas facil y eficaz posible</h4>
                 <br />
-                <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="btn btn-danger btn-raised btn-lg">
+                <a href="https://www.youtube.com/watch?v=mewfwSkQdXE" class="btn btn-danger btn-raised btn-lg">
         <i class="fa fa-play"></i> Mira el Video
       </a>
     </div>
