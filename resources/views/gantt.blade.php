@@ -67,7 +67,7 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" />
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
-    <script src="http://export.dhtmlx.com/gantt/api.js"></script>  
+    <script src="http://export.dhtmlx.com/gantt/api.js"></script>
     <script>
 function PrintElem(elem)
 {
@@ -77,7 +77,7 @@ function PrintElem(elem)
     mywindow.document.write('<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />');
     mywindow.document.write('<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" />');
     mywindow.document.write('<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" /><scr');
-    mywindow.document.write('ipt src="http://export.dhtmlx.com/gantt/api.js"></scri'); 
+    mywindow.document.write('ipt src="http://export.dhtmlx.com/gantt/api.js"></scri');
     mywindow.document.write('pt> <scr');
     mywindow.document.write('ipt src="https://cdn.dhtmlx.com/gantt/edge/dhtmlxgantt.js"></scr');
     mywindow.document.write('ipt><link href="https://cdn.dhtmlx.com/gantt/edge/dhtmlxgantt.css" rel="stylesheet"><title>' + document.title  + '</title>');
@@ -87,7 +87,7 @@ function PrintElem(elem)
     mywindow.document.write('</body></html>');
 
    if (is_chrome) {
-     setTimeout(function() { // wait until all resources loaded 
+     setTimeout(function() { // wait until all resources loaded
         mywindow.document.close(); // necessary for IE >= 10
         mywindow.focus(); // necessary for IE >= 10
         mywindow.print(); // change window to winPrint
@@ -154,7 +154,7 @@ if ($permiso->leer==0){
                                 </li>
 
 
-           
+
             <li><a href="../" >Salir</a></li>
           </ul>
         </li>
@@ -172,7 +172,7 @@ if ($permiso->leer==0){
         ?>
 
       </ul>
-      
+
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>

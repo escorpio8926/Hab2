@@ -60,7 +60,7 @@
 		@endif
 		<br>
 	<h2>
-		<i class="fa fa-btn fa-align-justify"></i> Actividades compartidas conmigo	
+		<i class="fa fa-btn fa-align-justify"></i> Actividades compartidas conmigo
 </h2>
 
 
@@ -86,25 +86,25 @@
 									if( $permiso->escribir==1){
 										?>
 										<span class="badge" style="background-color: #ff9000;">Lectura y Escritura</span>
-		
+
 											<?php
 									}else{
 										if( $permiso->leer==1){
 											?>
 											<span class="badge" style="background-color: #ff9000;">Lectura</span>
-			
+
 												<?php
 										}else{
 											?>
 											<span class="badge" style="background-color: red;">Acceso Denegado</span>
-			
+
 												<?php
 									}
 
 								}
 							}
-								
-								
+
+
 								?></h4>
       <p class="list-group-item-text">{{"Dentro del proyecto:"}} <i>{{App\Proyecto::find(App\Actividade::find($permiso->id_actividad)->proyecto_id)->titulo}}</i>"</p>
                   <button type="submit" class="checkbox">Ver Actividad</button>

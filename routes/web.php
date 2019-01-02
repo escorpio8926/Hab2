@@ -19,10 +19,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 
 
-Route::middleware(['auth','admin'])->prefix('admin')->namespace('Admin')->group(function () {
 
-
-});
 
 
 Route::get('/sendnotifications/{periodo}','SendNotifications@send');
@@ -47,3 +44,8 @@ Route::group(['middleware' => 'auth'], function () {
 
   Route::get("proyectos/{proyectos}/actividade/{idActividade}/usuarios/{permiso}/{idPermiso}", ['as' => 'proyectos.cambiarPermiso', 'uses'=>'ProyectoController@cambiarPermiso']);
 }); //Route::group(['middleware' => 'auth'], function ()
+
+
+Route::middleware(['auth','admin'])->group(function () {
+      Route::get('/admin/index','AdminController@control');
+  });

@@ -45,9 +45,9 @@ class ProyectoController extends Controller
           }
       }
       $permisos = $compartidos;
- 
 
-      
+
+
 
       //fin obtener actividades compartidas
 
@@ -247,7 +247,7 @@ class ProyectoController extends Controller
 
   public function verUsuarios(Request $request,$idproyecto, $idActividade){
     //dada una actividad mostrar los usuarios que tienen permiso sobre el mismo
-  
+
     return view('compartir')->with('idActividade',$idActividade);
   }
 
@@ -307,7 +307,7 @@ class ProyectoController extends Controller
     $nombreactividad = Actividade::find($idActividade)->actividad;
     \Mail::to(User::find($pac->id_usuario))->send(new PermisosModificados($nombreusuario,$nombreactividad,$mensaje));
   }
-    return redirect("/proyectos/".$idproyecto."/actividade/".$idActividade."/usuarios"); 
+    return redirect("/proyectos/".$idproyecto."/actividade/".$idActividade."/usuarios");
   }
 
 }

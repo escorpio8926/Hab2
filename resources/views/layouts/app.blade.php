@@ -53,9 +53,10 @@
 																								<li class"active">
 																										<a href="{{url('/home')}}">Gestion de proyectos</a>
 																								</li>
+
 																								@if(auth()->user()->admin)
 																								<li>
-																								<a href="{{url('/admin/products')}}">Gestionar Productos</a>
+																								<a href="{{url('/admin/index')}}">Administrador de Proyectos</a>
 																								</li>
 																								@endif
 							                                    <li>
