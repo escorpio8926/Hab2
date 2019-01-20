@@ -115,13 +115,22 @@ function PrintElem(elem)
 
 $permiso = App\Permiso::where('id_usuario','=',"".Auth::id())
 ->where('id_actividad','=',$idActividade)->get();
-if( (sizeof($permiso)==0)){
+if( (sizeof($permiso)==0 && Auth::user()->admin==0)){
     die("Acceso Denegado");
 }
-$permiso = $permiso[0];
-if ($permiso->leer==0){
-    die("Acceso Denegado");
+
+if(sizeof($permiso)>0){
+  $permiso = $permiso[0];
+  if ($permiso->leer==0 && Auth::user()->admin==0){
+      die("Acceso Denegado");
+  }
+
 }
+
+
+
+
+
 ?>
 <nav class="navbar navbar-default">
   <div class="container-fluid">
@@ -159,7 +168,7 @@ if ($permiso->leer==0){
           </ul>
         </li>
         <?php
-        if($permiso->controltotal==1){
+        if(Auth::user()->admin==1 || $permiso->controltotal==1){
         ?>
         <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Compartir<span class="caret"></span></a>
@@ -184,7 +193,7 @@ if ($permiso->leer==0){
 
 gantt.config.xml_date = "%Y-%m-%d %H:%i:%s";
 <?php
-if ($permiso->escribir==0){
+if (Auth::user()->admin==1 || $permiso->escribir==0){
     print("gantt.config.readonly = true;");
 }
 ?>

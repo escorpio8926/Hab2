@@ -54,7 +54,7 @@
 																										<a href="{{url('/home')}}">Gestion de proyectos</a>
 																								</li>
 
-																								@if(auth()->user()->admin)
+																									@if(auth()->user()->admin)
 																								<li>
 																								<a href="{{url('/admin/index')}}">Administrador de Proyectos</a>
 																								</li>
