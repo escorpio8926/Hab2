@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('body-class','landing-page')
 @section('content')
-@section('title','Gestor de Poryecto')
+@section('title','Gestor de Proyecto')
 @section('styles')
 <style>
 
